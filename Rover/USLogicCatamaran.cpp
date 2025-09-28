@@ -14,7 +14,6 @@ void US_Logic_Catamaran::update()
 {
 
 	static uint32_t last_ms = 0;
-	static bool stat = false;
 	uint32_t now = AP_HAL::millis();
 
 	if (rc().has_valid_input() && !stat)
@@ -27,16 +26,27 @@ void US_Logic_Catamaran::update()
 		GCS_SEND_TEXT(MAV_SEVERITY_INFO, "Втрачено зв'язок");
 	}
 
-	rc_right_starter_value = rc().get_radio_in(rc_channel_right_starter);
-	rc_left_starter_value = rc().get_radio_in(rc_channel_left_starter);
-	rc_right_left_podsos_value = rc().get_radio_in(
-			rc_channel_right_left_podsos);
-	rc_right_left_stop_value = rc().get_radio_in(rc_channel_right_left_stop);
-
-	rc_throttle_value = rc().get_radio_in(rc_channel_throttle);
-	rc_transmission_value = rc().get_radio_in(rc_channel_transmission);
-	rc_turn_value = rc().get_radio_in(rc_channel_turn);
-
+	if (stat)
+	{
+		rc_right_starter_value = rc().get_radio_in(rc_channel_right_starter);
+		rc_left_starter_value = rc().get_radio_in(rc_channel_left_starter);
+		rc_right_left_podsos_value = rc().get_radio_in(
+				rc_channel_right_left_podsos);
+		rc_right_left_stop_value = rc().get_radio_in(
+				rc_channel_right_left_stop);
+		rc_throttle_value = rc().get_radio_in(rc_channel_throttle);
+		rc_transmission_value = rc().get_radio_in(rc_channel_transmission);
+		rc_turn_value = rc().get_radio_in(rc_channel_turn);
+	} else
+	{ // failsafe set
+		rc_right_starter_value = rc_right_starter_failsafe_value;
+		rc_left_starter_value = rc_left_starter_failsafe_value;
+		rc_right_left_podsos_value = rc_right_left_podsos_failsafe_value;
+		rc_right_left_stop_value = rc_right_left_stop_failsafe_value;
+		rc_throttle_value = rc_throttle_failsafe_value;
+		rc_transmission_value = rc_transmission_failsafe_value;
+		rc_turn_value = rc_turn_failsafe_value;
+	}
 	if (now > last_ms + 50)
 	{
 		last_ms = now;
@@ -55,6 +65,7 @@ void US_Logic_Catamaran::servo_control()
 }
 void US_Logic_Catamaran::relay_control()
 {
+
 	if (rc_right_starter_value > rc_on_value)
 	{
 		AP::relay()->on(relay_channel_right_starter);

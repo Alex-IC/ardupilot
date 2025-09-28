@@ -32,20 +32,30 @@ public:
 	const uint8_t relay_channel_left_podsos = 4 - 1;
 	const uint8_t relay_channel_right_left_stop = 5 - 1;
 
-	const uint8_t servo_channel_throttle = 12;
-	const uint8_t servo_channel_transmission = 11;
-	const uint8_t servo_channel_turn = 10;
+	const uint8_t servo_channel_throttle = 12 - 1;
+	const uint8_t servo_channel_transmission = 11 - 1;
+	const uint8_t servo_channel_turn = 10 - 1;
 
 	const uint16_t rc_on_value = 1700;
 	const uint16_t rc_off_value = 1300;
+
 	uint16_t rc_right_starter_value = 0;
 	uint16_t rc_left_starter_value = 0;
 	uint16_t rc_right_left_podsos_value = 0;
 	uint16_t rc_throttle_value = 0;
 	uint16_t rc_transmission_value = 0;
 	uint16_t rc_turn_value = 0;
-
 	uint16_t rc_right_left_stop_value = 0;
+
+	const uint16_t rc_right_starter_failsafe_value = 1100;
+	const uint16_t rc_left_starter_failsafe_value = 1100;
+	const uint16_t rc_right_left_podsos_failsafe_value = 1500;
+	const uint16_t rc_throttle_failsafe_value = 1100;
+	const uint16_t rc_transmission_failsafe_value = 1100;
+	const uint16_t rc_turn_failsafe_value = 1500;
+	const uint16_t rc_right_left_stop_failsafe_value = 2000;
+
+	bool stat = false;
 	void update();
 private:
 	void relay_control();
