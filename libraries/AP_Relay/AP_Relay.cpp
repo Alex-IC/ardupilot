@@ -35,29 +35,36 @@
 #endif
 
 #ifndef RELAY1_PIN_DEFAULT
-  #define RELAY1_PIN_DEFAULT -1
+  #define RELAY1_PIN_DEFAULT 50
 #endif
 
 #ifndef RELAY2_PIN_DEFAULT
-  #define RELAY2_PIN_DEFAULT -1
+  #define RELAY2_PIN_DEFAULT 51
 #endif
 
 #ifndef RELAY3_PIN_DEFAULT
-  #define RELAY3_PIN_DEFAULT -1
+  #define RELAY3_PIN_DEFAULT 52
 #endif
 
 #ifndef RELAY4_PIN_DEFAULT
-  #define RELAY4_PIN_DEFAULT -1
+  #define RELAY4_PIN_DEFAULT 53
 #endif
 
 #ifndef RELAY5_PIN_DEFAULT
-  #define RELAY5_PIN_DEFAULT -1
+  #define RELAY5_PIN_DEFAULT 54
 #endif
 
 #ifndef RELAY6_PIN_DEFAULT
-  #define RELAY6_PIN_DEFAULT -1
+  #define RELAY6_PIN_DEFAULT 55
 #endif
 
+#ifndef RELAY7_PIN_DEFAULT
+  #define RELAY7_PIN_DEFAULT -1
+#endif
+
+#ifndef RELAY8_PIN_DEFAULT
+  #define RELAY8_PIN_DEFAULT -1
+#endif
 
 const AP_Param::GroupInfo AP_Relay::var_info[] = {
     // 0 was PIN
@@ -298,7 +305,9 @@ void AP_Relay::set_defaults() {
                              RELAY3_PIN_DEFAULT,
                              RELAY4_PIN_DEFAULT,
                              RELAY5_PIN_DEFAULT,
-                             RELAY6_PIN_DEFAULT };
+                             RELAY6_PIN_DEFAULT,
+							 RELAY7_PIN_DEFAULT
+							 RELAY8_PIN_DEFAULT};
 
     for (uint8_t i = 0; i < MIN(ARRAY_SIZE(_params), ARRAY_SIZE(pins)); i++) {
         // set the default

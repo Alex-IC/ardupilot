@@ -39,6 +39,7 @@ const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 #define SCHED_TASK(func, rate_hz, _max_time_micros, _priority) SCHED_TASK_CLASS(Rover, &rover, func, rate_hz, _max_time_micros, _priority)
 
+
 /*
   scheduler table - all regular tasks should be listed here.
 
@@ -101,6 +102,7 @@ const AP_Scheduler::Task Rover::scheduler_tasks[] = {
 #if AP_SERVORELAYEVENTS_ENABLED
     SCHED_TASK_CLASS(AP_ServoRelayEvents, &rover.ServoRelayEvents, update_events,  50,  200,  66),
 #endif
+	SCHED_TASK_CLASS(US_Logic_Catamaran, &rover.LogicCatamaran, update, 50, 200, 69),
 #if AC_PRECLAND_ENABLED
     SCHED_TASK(update_precland,      400,     50,  70),
 #endif
@@ -135,6 +137,7 @@ const AP_Scheduler::Task Rover::scheduler_tasks[] = {
 #if AP_ROVER_ADVANCED_FAILSAFE_ENABLED
     SCHED_TASK(afs_fs_check,           10,    200, 129),
 #endif
+
 };
 
 

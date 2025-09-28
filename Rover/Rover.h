@@ -21,6 +21,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 
+#include "USLogicCatamaran.h"
 // Libraries
 #include <AP_Common/AP_Common.h>
 #include <AP_HAL/AP_HAL.h>
@@ -76,6 +77,7 @@
 
 class Rover : public AP_Vehicle {
 public:
+	friend class US_Logic_Catamaran;
     friend class GCS_MAVLINK_Rover;
     friend class Parameters;
     friend class ParametersG2;
@@ -115,7 +117,7 @@ public:
     Rover(void);
 
 private:
-
+    US_Logic_Catamaran LogicCatamaran;
     // must be the first AP_Param variable declared to ensure its
     // constructor runs before the constructors of the other AP_Param
     // variables
